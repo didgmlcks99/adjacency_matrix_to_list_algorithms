@@ -1,2 +1,2 @@
 # Graph_Algorithms
-### This project is constructs Adjacent Array and Adjacent list in alphabetical order for a given input graph. It then computes a tranpose of the graph. 
+### This project is constructs an adjacent list for both original map and a transpoed version of the map.
