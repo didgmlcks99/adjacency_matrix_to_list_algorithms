@@ -26,6 +26,7 @@ void print_2d_vector(vector<vector<string> > v);
 vector<vector<string> >  transpose(vector<vector<string> > map);
 
 int main(){
+    // open data file of the matrix of the map
     ifstream myfile("hw5_data.txt");
     if (myfile.is_open()) { }
     else { 
@@ -34,10 +35,12 @@ int main(){
         return 0x0;
     }
 
+    // retrive informations about the existing nodes in the map
     string line;
     getline(myfile, line);
     deque<string> nodes = nodeGetter(line, '\t');
 
+    // get directions information for each nodes
     vector<vector<string> > map;
     int count = 0;
     while(getline(myfile, line)){
@@ -45,8 +48,8 @@ int main(){
         count ++;
     }
 
+    // initialize a transposed map and save as a transpoed version of the map 
     vector<vector<string> > transposed_map (map.size(), vector<string>(map[0].size(), "0"));
-
     transposed_map = transpose(map);
 
     myfile.close();
@@ -54,6 +57,7 @@ int main(){
     return 0;
 }
 
+// retrive informations about the existing nodes in the map
 deque<string> nodeGetter(string input, char delimiter){
     deque<string> nodes;
     stringstream ss(input);
@@ -68,6 +72,7 @@ deque<string> nodeGetter(string input, char delimiter){
     return nodes;
 }
 
+// get directions information for each nodes
 vector<string> mapGetter(string input, char delimiter){
     vector<string> map;
     stringstream ss(input);
@@ -81,6 +86,7 @@ vector<string> mapGetter(string input, char delimiter){
     return map;
 }
 
+// print out a 2D vector
 void print_2d_vector(vector<vector<string> > v){
     cout << v.size() << " : " << v[0].size() << endl;
     for(int i=0; i < v.size(); i++){
@@ -90,6 +96,7 @@ void print_2d_vector(vector<vector<string> > v){
     }
 }
 
+// initialize a transposed map and save as a transpoed version of the map 
 vector<vector<string> >  transpose(vector<vector<string> > map){
     vector<vector<string> > transposed_map (map.size(), vector<string>(map[0].size(), "0"));
 
