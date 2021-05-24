@@ -1,6 +1,7 @@
 /*
 
 ## 강의
+없음
 
 ## blogs and websites
 https://www.geeksforgeeks.org/program-to-find-transpose-of-a-matrix/
@@ -52,7 +53,7 @@ int main(){
         count ++;
     }
 
-    // initialize a transposed map and save as a transpoed version of the map 
+    // initialize a transposed map and save as a transposed version of the map 
     int **transposed_map;
     transposed_map = new int *[nodes.size()];
     for(int i=0; i<nodes.size(); i++){
@@ -60,13 +61,13 @@ int main(){
     }
     transpose(map, transposed_map);
 
-    cout << "Matrix of original map." << endl;
+    cout << "Adjancy Matrix of original map." << endl;
     print_2d_vector(map);
 
     cout << "Adjancy list of original map." << endl;
     adjacency_list(map, nodes);
 
-    cout << "Matrix of transposed map." << endl;
+    cout << "Adjancy Matrix of transposed map." << endl;
     print_2d_vector(transposed_map);
 
     cout << "Adjancy list of transposed map." << endl;
@@ -123,6 +124,7 @@ void transpose(int **map, int **transposed_map){
     }
 }
 
+// prints out adjacency list of the map
 void adjacency_list(int **map, vector<string> nodes){
     for(int i=0; i < nodes.size(); i++){
         cout << nodes[i][0];
