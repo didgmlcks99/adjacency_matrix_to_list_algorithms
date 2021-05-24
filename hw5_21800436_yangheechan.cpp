@@ -4,26 +4,25 @@
 
 ## blogs and websites
 https://www.geeksforgeeks.org/program-to-find-transpose-of-a-matrix/
+https://www.tutorialspoint.com/Passing-two-dimensional-array-to-a-Cplusplus-function
 
 */
 
-// add below using header
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <stdlib.h>
 #include <sstream>
-// #include <time.h>
 #include <vector>
-// #include <algorithm>
 #include <deque>
 
 using namespace std;
 
-deque<string> nodeGetter(string input, char delimiter);
+vector<string> nodeGetter(string input, char delimiter);
 void mapGetter(int *map, string input, char delimiter);
 void print_2d_vector(int **v);
 void transpose(int **map, int **transposed_map);
+void adjacency_list(int **map, vector<string> nodes);
 
 int main(){
     // open data file of the matrix of the map
@@ -38,7 +37,7 @@ int main(){
     // retrive informations about the existing nodes in the map
     string line;
     getline(myfile, line);
-    deque<string> nodes = nodeGetter(line, '\t');
+    vector<string> nodes = nodeGetter(line, '\t');
 
     // get directions information for each nodes
     int **map;
@@ -61,9 +60,17 @@ int main(){
     }
     transpose(map, transposed_map);
 
+    cout << "Matrix of original map." << endl;
     print_2d_vector(map);
-    cout << endl;
+
+    cout << "Adjancy list of original map." << endl;
+    adjacency_list(map, nodes);
+
+    cout << "Matrix of transposed map." << endl;
     print_2d_vector(transposed_map);
+
+    cout << "Adjancy list of transposed map." << endl;
+    adjacency_list(transposed_map, nodes);
 
     myfile.close();
     
@@ -71,16 +78,15 @@ int main(){
 }
 
 // retrive informations about the existing nodes in the map
-deque<string> nodeGetter(string input, char delimiter){
-    deque<string> nodes;
+vector<string> nodeGetter(string input, char delimiter){
+    vector<string> nodes;
     stringstream ss(input);
     string temp;
 
+    getline(ss, temp, delimiter);
     while(getline(ss, temp, delimiter)){
         nodes.push_back(temp);
     }
-
-    nodes.pop_front();
 
     return nodes;
 }
@@ -100,12 +106,12 @@ void mapGetter(int *map, string input, char delimiter){
 
 // print out a 2D vector
 void print_2d_vector(int **v){
-    cout << sizeof(v) << " : " << sizeof(v[0]) << endl;
+    cout << sizeof(v) << " x " << sizeof(v[0]) << endl;
     for(int i=0; i < sizeof(v); i++){
         for(int j=0; j < sizeof(v[i]); j++){
             cout << v[i][j];
         }cout << endl;
-    }
+    }cout << endl;
 }
 
 // initialize a transposed map and save as a transpoed version of the map 
@@ -115,4 +121,15 @@ void transpose(int **map, int **transposed_map){
             transposed_map[i][j] = map[j][i];
         }
     }
+}
+
+void adjacency_list(int **map, vector<string> nodes){
+    for(int i=0; i < nodes.size(); i++){
+        cout << nodes[i][0];
+        for(int j=0; j < sizeof(map[i]); j++){
+            if(map[i][j] == 1){
+                cout << " --> " << nodes[j];
+            }
+        }cout << endl;
+    }cout << endl;
 }
