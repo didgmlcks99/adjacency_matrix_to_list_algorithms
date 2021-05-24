@@ -1,9 +1,9 @@
 /*
 
 ## 강의
-slide (ppt) : Knapsack Problem
 
 ## blogs and websites
+https://www.geeksforgeeks.org/program-to-find-transpose-of-a-matrix/
 
 */
 
@@ -21,9 +21,9 @@ slide (ppt) : Knapsack Problem
 using namespace std;
 
 deque<string> nodeGetter(string input, char delimiter);
-vector<string> mapGetter(string input, char delimiter);
-void print_2d_vector(vector<vector<string> > v);
-vector<vector<string> >  transpose(vector<vector<string> > map);
+void mapGetter(int *map, string input, char delimiter);
+void print_2d_vector(int **v);
+void transpose(int **map, int **transposed_map);
 
 int main(){
     // open data file of the matrix of the map
@@ -41,16 +41,29 @@ int main(){
     deque<string> nodes = nodeGetter(line, '\t');
 
     // get directions information for each nodes
-    vector<vector<string> > map;
+    int **map;
+    map = new int *[nodes.size()];
+    for(int i=0; i<nodes.size(); i++){
+        map[i] = new int[nodes.size()];
+    }
+
     int count = 0;
     while(getline(myfile, line)){
-        map.push_back(mapGetter(line, '\t'));
+        mapGetter(map[count], line, '\t');
         count ++;
     }
 
     // initialize a transposed map and save as a transpoed version of the map 
-    vector<vector<string> > transposed_map (map.size(), vector<string>(map[0].size(), "0"));
-    transposed_map = transpose(map);
+    int **transposed_map;
+    transposed_map = new int *[nodes.size()];
+    for(int i=0; i<nodes.size(); i++){
+        transposed_map[i] = new int[nodes.size()];
+    }
+    transpose(map, transposed_map);
+
+    print_2d_vector(map);
+    cout << endl;
+    print_2d_vector(transposed_map);
 
     myfile.close();
     
@@ -73,38 +86,33 @@ deque<string> nodeGetter(string input, char delimiter){
 }
 
 // get directions information for each nodes
-vector<string> mapGetter(string input, char delimiter){
-    vector<string> map;
+void mapGetter(int *map, string input, char delimiter){
     stringstream ss(input);
     string temp;
-
+    
+    int count = 0;
     getline(ss, temp, delimiter);
     while(getline(ss, temp, delimiter)){
-        map.push_back(temp);
+        map[count] = stoi(temp);
+        count++;
     }
-
-    return map;
 }
 
 // print out a 2D vector
-void print_2d_vector(vector<vector<string> > v){
-    cout << v.size() << " : " << v[0].size() << endl;
-    for(int i=0; i < v.size(); i++){
-        for(int j=0; j < v[i].size(); j++){
+void print_2d_vector(int **v){
+    cout << sizeof(v) << " : " << sizeof(v[0]) << endl;
+    for(int i=0; i < sizeof(v); i++){
+        for(int j=0; j < sizeof(v[i]); j++){
             cout << v[i][j];
         }cout << endl;
     }
 }
 
 // initialize a transposed map and save as a transpoed version of the map 
-vector<vector<string> >  transpose(vector<vector<string> > map){
-    vector<vector<string> > transposed_map (map.size(), vector<string>(map[0].size(), "0"));
-
-    for(int i=0; i < map.size(); i++){
-        for(int j=0; j < map[i].size(); j++){
+void transpose(int **map, int **transposed_map){
+    for(int i=0; i < sizeof(map); i++){
+        for(int j=0; j < sizeof(map[i]); j++){
             transposed_map[i][j] = map[j][i];
         }
     }
-
-    return transposed_map;
 }
