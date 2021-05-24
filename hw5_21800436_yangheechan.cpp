@@ -15,7 +15,6 @@ https://www.tutorialspoint.com/Passing-two-dimensional-array-to-a-Cplusplus-func
 #include <stdlib.h>
 #include <sstream>
 #include <vector>
-#include <deque>
 
 using namespace std;
 
