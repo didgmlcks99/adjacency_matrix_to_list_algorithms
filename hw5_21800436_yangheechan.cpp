@@ -21,7 +21,7 @@ using namespace std;
 
 vector<string> nodeGetter(string input, char delimiter);
 void mapGetter(int *map, string input, char delimiter);
-void print_2d_vector(int **v);
+void print_2d_vector(int **v, vector<string> nodes);
 void transpose(int **map, int **transposed_map);
 void adjacency_list(int **map, vector<string> nodes);
 
@@ -62,13 +62,13 @@ int main(){
     transpose(map, transposed_map);
 
     cout << "Adjancy Matrix of original map." << endl;
-    print_2d_vector(map);
+    print_2d_vector(map, nodes);
 
     cout << "Adjancy list of original map." << endl;
     adjacency_list(map, nodes);
 
     cout << "Adjancy Matrix of transposed map." << endl;
-    print_2d_vector(transposed_map);
+    print_2d_vector(transposed_map, nodes);
 
     cout << "Adjancy list of transposed map." << endl;
     adjacency_list(transposed_map, nodes);
@@ -84,8 +84,7 @@ vector<string> nodeGetter(string input, char delimiter){
     stringstream ss(input);
     string temp;
 
-    getline(ss, temp, delimiter);
-    while(getline(ss, temp, delimiter)){
+    while(ss >> temp){
         nodes.push_back(temp);
     }
 
@@ -98,17 +97,26 @@ void mapGetter(int *map, string input, char delimiter){
     string temp;
     
     int count = 0;
-    getline(ss, temp, delimiter);
-    while(getline(ss, temp, delimiter)){
+    ss >> temp;
+    while(ss >> temp){
         map[count] = stoi(temp);
         count++;
     }
 }
 
 // print out a 2D vector
-void print_2d_vector(int **v){
-    cout << sizeof(v) << " x " << sizeof(v[0]) << endl;
+void print_2d_vector(int **v, vector<string> nodes){
+    cout << "  ";
+    for(int i=0; i < nodes.size(); i++){
+        cout << nodes[i][0];
+    }cout << endl;
+    cout << "  ";
+    for(int i=0; i < nodes.size(); i++){
+        cout << "-";
+    }cout << endl;
+
     for(int i=0; i < sizeof(v); i++){
+        cout << nodes[i][0] << "|";
         for(int j=0; j < sizeof(v[i]); j++){
             cout << v[i][j];
         }cout << endl;
