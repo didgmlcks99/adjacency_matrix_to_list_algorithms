@@ -18,6 +18,7 @@ https://www.tutorialspoint.com/Passing-two-dimensional-array-to-a-Cplusplus-func
 using namespace std;
 
 vector<string> nodeGetter(string input, char delimiter);
+void check_eligibility(vector<string> nodes);
 void mapGetter(int *map, string input, char delimiter);
 void print_2d_vector(int **v, vector<string> nodes);
 void transpose(int **map, int **transposed_map);
@@ -39,14 +40,7 @@ int main(){
     vector<string> nodes = nodeGetter(line, '\t');
 
     // check whether the number of nodes are eligible to continue the program.
-    cout << "The number of nodes : " << nodes.size() << endl;
-    if(nodes.size() > 20){
-        cout << "The number of nodes should be less than or equall to 20." << endl;
-        cout << "Terminating program." << endl;
-        return 0x0;
-    }else{
-        cout << "Eligible size to continue with program." << endl;
-    }cout << endl;
+    check_eligibility(nodes);
 
     // get directions information for each nodes
     int **map;
@@ -95,8 +89,19 @@ vector<string> nodeGetter(string input, char delimiter){
     while(ss >> temp){
         nodes.push_back(temp);
     }
-
     return nodes;
+}
+
+// check whether the number of nodes are eligible to continue the program.
+void check_eligibility(vector<string> nodes){
+    cout << "The number of nodes : " << nodes.size() << endl;
+    if(nodes.size() > 30){
+        cout << "The number of nodes should be less than or equall to 30." << endl;
+        cout << "Terminating program." << endl;
+        exit(0);
+    }else{
+        cout << "Eligible size to continue with program." << endl;
+    }cout << endl;
 }
 
 // get directions information for each nodes
