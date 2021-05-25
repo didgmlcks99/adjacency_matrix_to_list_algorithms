@@ -38,6 +38,16 @@ int main(){
     getline(myfile, line);
     vector<string> nodes = nodeGetter(line, '\t');
 
+    // check whether the number of nodes are eligible to continue the program.
+    cout << "The number of nodes : " << nodes.size() << endl;
+    if(nodes.size() > 20){
+        cout << "The number of nodes should be less than or equall to 20." << endl;
+        cout << "Terminating program." << endl;
+        return 0x0;
+    }else{
+        cout << "Eligible size to continue with program." << endl;
+    }cout << endl;
+
     // get directions information for each nodes
     int **map;
     map = new int *[nodes.size()];
